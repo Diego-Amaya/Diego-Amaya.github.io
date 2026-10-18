@@ -143,14 +143,18 @@
   .course h3 { font: 600 19px/1.3 var(--serif); margin: 4px 0 2px; }
   .course .meta { font-size: 13.5px; color: var(--faint); margin-bottom: 8px; }
   .course p { margin: 0; color: var(--muted); }
+  .honors { list-style: none; margin: 0; padding: 0; }
+  .honors li { padding: 12px 0 12px 22px; border-bottom: 1px solid var(--line); position: relative; }
+  .honors li:last-child { border-bottom: 0; }
+  .honors li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 7px; height: 7px; border-radius: 50%; background: #e9b949; }
 
   footer { margin-top: 64px; padding: 24px 0 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--faint); }
 
   @media (max-width: 680px) {
     .topnav .brand { display: none; }
     .topnav nav { margin: 0 auto; }
-    .topnav nav a { padding: 7px 7px; font-size: 13px; }
-    .topnav .wrap { padding: 0 10px; }
+    .topnav nav a { padding: 7px 5px; font-size: 12.5px; }
+    .topnav .wrap { padding: 0 6px; }
     .hero { padding-top: 32px; }
     .hero-top { flex-direction: column; align-items: flex-start; gap: 20px; }
     .avatar { width: 128px; height: 128px; }
@@ -172,6 +176,7 @@
       <a href="#publications">Publications</a>
       <a href="#working-papers">Working Papers</a>
       <a href="#teaching">Teaching</a>
+      <a href="#awards-grants">Awards</a>
     </nav>
   </div>
 </header>
@@ -416,6 +421,21 @@
       <div class="meta">PhD</div>
       <p>This seminar course covers the major principles of financial economics. Topics include the theory of corporate finance, portfolio theory and the capital asset pricing model, arbitrage pricing theory, and market microstructure.</p>
     </div>
+  </section>
+
+  <section id="awards-grants">
+    <div class="sec-head"><h2>Awards and Grants</h2></div>
+    <div class="sec-rule"></div>
+    <ul class="honors">
+      <li>Best Paper Award in Options and Derivatives, 2026 FMA Annual Meeting</li>
+      <li>Best Paper Award, 2026 FMA Consortium on Asset Management</li>
+      <li>NFA Best Paper Award in Derivatives, 2017</li>
+      <li>Cboe Options Institute Research Grant</li>
+      <li>SSHRC Insight Development Grant</li>
+      <li>IVADO Fundamental Research Project Grant</li>
+      <li>Canadian Derivatives Institute Research Grant</li>
+      <li>Goldberg Family Foundation Fellow in Finance</li>
+    </ul>
   </section>
 </main>
 
