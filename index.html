@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Amaya</title>
+<meta name="description" content="Diego Amaya, Associate Professor of Finance, Lazaridis School of Business and Economics, Wilfrid Laurier University. Research in empirical finance, derivatives, and market microstructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1f1a2b;
+    --muted: #625c70;
+    --faint: #8f899c;
+    --paper: #faf8f4;
+    --card: #ffffff;
+    --line: #e7e2da;
+    --purple: #3b1173;
+    --purple-2: #5a2ca0;
+    --purple-wash: #f1ecf8;
+    --gold: #a8740c;
+    --gold-wash: #fbf3e2;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--sans); }
+  a { color: var(--purple); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- top navigation ---------- */
+  .topnav { position: sticky; top: 0; z-index: 20; background: var(--purple); box-shadow: 0 1px 0 rgba(0,0,0,.08); }
+  .topnav .wrap { display: flex; align-items: center; gap: 24px; height: 58px; }
+  .topnav .brand { font: 600 19px var(--serif); color: #fff; text-decoration: none; margin-right: auto; white-space: nowrap; }
+  .topnav nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .topnav nav::-webkit-scrollbar { display: none; }
+  .topnav nav a {
+    color: #d9cfeb; text-decoration: none; font-size: 14px; font-weight: 500; white-space: nowrap;
+    padding: 7px 12px; border-radius: 6px;
+  }
+  .topnav nav a:hover { color: #fff; background: rgba(255,255,255,.08); }
+  .topnav nav a.active { color: #fff; background: rgba(255,255,255,.14); box-shadow: inset 0 -2px 0 #e9b949; }
+
+  /* ---------- header ---------- */
+  .hero { padding: 56px 0 8px; }
+  .hero-top { display: flex; gap: 36px; align-items: center; }
+  .avatar {
+    flex: none; width: 168px; height: 168px; border-radius: 50%; overflow: hidden;
+    background: var(--purple-wash); border: 4px solid #fff; box-shadow: 0 0 0 1px var(--line), 0 6px 20px rgba(59,17,115,.12);
+    display: grid; place-items: center;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .avatar .initials { font: 600 52px var(--serif); color: var(--purple); }
+  .hero h1 { font: 600 42px/1.05 var(--serif); margin: 0 0 10px; letter-spacing: -.015em; }
+  .roles { margin: 0 0 14px; color: var(--muted); line-height: 1.5; }
+  .roles strong { color: var(--ink); font-weight: 600; }
+  .contact { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+  .profiles { display: flex; flex-wrap: wrap; gap: 8px; }
+  .profiles a {
+    font-size: 13px; font-weight: 500; text-decoration: none; color: var(--purple);
+    padding: 5px 13px; border: 1px solid #d8cdea; border-radius: 999px; background: var(--card);
+  }
+  .profiles a:hover { background: var(--purple-wash); border-color: var(--purple); }
+  .about { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .about p { margin: 0 0 12px; }
+  .about .lead { font: 400 19px/1.65 var(--serif); }
+  .about p:not(.lead) { color: var(--muted); }
+
+  /* ---------- sections ---------- */
+  section { padding-top: 56px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; }
+  .sec-head h2 { font: 600 30px/1.2 var(--serif); margin: 0; letter-spacing: -.01em; }
+  .sec-head .count { font-size: 13px; color: var(--faint); }
+  .sec-rule { height: 2px; margin: 10px 0 6px; background: linear-gradient(90deg, var(--purple) 0 64px, var(--line) 64px); }
+
+  .filterbar {
+    position: sticky; top: 66px; z-index: 5; display: none; align-items: center; gap: 10px;
+    margin-top: 28px; padding: 10px 16px; background: var(--purple-wash);
+    border: 1px solid #ddd1ef; border-radius: 8px; font-size: 14px;
+  }
+  .filterbar.show { display: flex; }
+  .filterbar button { margin-left: auto; font: 600 13px var(--sans); color: var(--purple); background: none; border: 0; cursor: pointer; }
+  .filterbar button:hover { text-decoration: underline; }
+
+  /* ---------- paper entries ---------- */
+  .paper { padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .paper:last-child { border-bottom: 0; }
+  .paper.hidden { display: none; }
+  .ptitle { font: 600 20px/1.35 var(--serif); margin: 0 0 6px; }
+  .ptitle a { color: var(--ink); text-decoration: none; background: linear-gradient(var(--purple-2), var(--purple-2)) 0 100% / 0 1.5px no-repeat; transition: background-size .25s; }
+  .ptitle a:hover { background-size: 100% 1.5px; }
+  .who { margin: 0 0 2px; color: var(--muted); font-size: 15px; }
+  .pub { margin: 0; font-size: 15px; color: var(--muted); }
+  .pub .journal { font-style: italic; color: var(--ink); }
+  .pub .sep { margin: 0 8px; color: var(--faint); }
+  .pub .year { font-weight: 600; color: var(--purple); font-variant-numeric: tabular-nums; }
+
+  .awards { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .awards li {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 500; color: #6b4a06;
+    background: var(--gold-wash); border: 1px solid #efdcae; border-radius: 6px; padding: 4px 10px 4px 8px;
+  }
+  .awards svg { width: 15px; height: 15px; color: var(--gold); flex: none; }
+
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 14px; }
+  .tg, .lnk { font: 600 13.5px var(--sans); display: inline-flex; align-items: center; gap: 6px; }
+  .tg {
+    cursor: pointer; color: var(--purple); background: var(--card); border: 1px solid #d8cdea;
+    border-radius: 6px; padding: 5px 12px 5px 10px;
+  }
+  .tg:hover { border-color: var(--purple); background: var(--purple-wash); }
+  .tg[aria-expanded="true"] { background: var(--purple); border-color: var(--purple); color: #fff; }
+  .tg .cnt { font-weight: 500; font-size: 12px; opacity: .75; }
+  .chev { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .2s; margin-right: 3px; }
+  .tg[aria-expanded="true"] .chev { transform: rotate(45deg) translate(-2px, -2px); }
+  .divider { width: 1px; height: 18px; background: var(--line); }
+  .lnk { color: var(--purple); text-decoration: none; }
+  .lnk:hover { color: var(--purple-2); text-decoration: underline; }
+  .lnk svg { width: 15px; height: 15px; }
+
+  .panel { margin-top: 14px; padding: 16px 20px; background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--purple); border-radius: 0 8px 8px 0; }
+  .panel:not([hidden]) { animation: open .22s ease-out; }
+  @keyframes open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  .abstract p { margin: 0; font-size: 15px; line-height: 1.7; color: #3a3446; }
+  .pres ul { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 28px; }
+  .pres li { break-inside: avoid; position: relative; padding: 3px 0 3px 16px; font-size: 14.5px; color: #3a3446; }
+  .pres li::before { content: ""; position: absolute; left: 0; top: .78em; width: 6px; height: 6px; border-radius: 50%; background: var(--purple-2); opacity: .55; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tag {
+    font: 500 12px/1 var(--sans); color: var(--muted); background: transparent;
+    border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; cursor: pointer;
+  }
+  .tag:hover, .tag.on { color: var(--purple); border-color: var(--purple); background: var(--purple-wash); }
+
+  /* ---------- teaching ---------- */
+  .course { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .course:last-child { border-bottom: 0; }
+  .course .code { font-size: 12px; font-weight: 600; letter-spacing: .06em; color: var(--purple); text-transform: uppercase; }
+  .course h3 { font: 600 19px/1.3 var(--serif); margin: 4px 0 2px; }
+  .course .meta { font-size: 13.5px; color: var(--faint); margin-bottom: 8px; }
+  .course p { margin: 0; color: var(--muted); }
+
+  footer { margin-top: 64px; padding: 24px 0 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--faint); }
+
+  @media (max-width: 680px) {
+    .topnav .brand { display: none; }
+    .topnav nav { margin: 0 auto; }
+    .topnav nav a { padding: 7px 7px; font-size: 13px; }
+    .topnav .wrap { padding: 0 10px; }
+    .hero { padding-top: 32px; }
+    .hero-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .avatar { width: 128px; height: 128px; }
+    .hero h1 { font-size: 34px; }
+    .about .lead { font-size: 17.5px; }
+    .pres ul { columns: 1; }
+    .divider { display: none; }
+    .sec-head h2 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="wrap">
+    <a class="brand" href="#about">Diego Amaya</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#working-papers">Working Papers</a>
+      <a href="#teaching">Teaching</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about" class="hero" style="padding-top:56px">
+    <div class="hero-top">
+      <div class="avatar">
+        <img src="photo.jpg" alt="Diego Amaya" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'initials',textContent:'DA'}))">
+      </div>
+      <div>
+        <h1>Diego Amaya</h1>
+        <p class="roles">
+          <strong>Associate Professor of Finance</strong><br>
+          Lazaridis School of Business and Economics, Wilfrid Laurier University
+        </p>
+        <div class="contact">
+          <span>Office LH4084, Lazaridis Hall</span>
+          <span>519.884.0201 ext. 4428</span>
+          <span>damaya [at] wlu.ca</span>
+        </div>
+        <div class="profiles">
+          <a href="https://scholar.google.ca/citations?user=4MMsHk0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=710335" target="_blank" rel="noopener">SSRN</a>
+          <a href="https://www.linkedin.com/in/diego-amaya-7b3a7352" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="about">
+      <p class="lead">
+        I am an empirical finance researcher working on asset pricing, derivatives, market microstructure, and risk management.
+        My recent work studies the S&amp;P 500 index options market: zero-days-to-expiration (0DTE) options, the price impact of
+        market makers&rsquo; hedging, and the growing role of retail and algorithmic option traders.
+      </p>
+      <p>
+        My research is supported by the Social Sciences and Humanities Research Council of Canada, the Canadian Institute of Derivatives (CDI), IVADO, and Cboe.
+        I teach derivatives, investment strategies, risk management, and machine learning in finance.
+        For speaking requests and inquiries, please email me.
+      </p>
+    </div>
+  </section>
+
+  <div class="filterbar" id="filterbar">
+    <span>Topic: <strong id="filtername"></strong></span>
+    <button type="button" id="clearfilter">Show all papers &times;</button>
+  </div>
+
+  <section id="publications">
+    <div class="sec-head"><h2>Publications</h2><span class="count">11 articles</span></div>
+    <div class="sec-rule"></div>
+        <article class="paper" data-tags="Research Methodology|Multi-Analyst Study|Liquidity">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3961574" target="_blank" rel="noopener">Nonstandard Errors</a></h3>
+          <p class="who">Crowdsourced multi-analyst project led by Albert J. Menkveld, with 340+ coauthors</p>
+          <p class="pub"><span class="journal">Journal of Finance</span>, Vol. 79, Issue 3, 2339–2390<span class="sep">&middot;</span><span class="year">2024</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs1"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3961574" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/3961574.pdf?abstractid=3961574" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a><a class="lnk" href="https://doi.org/10.1111/jofi.13337" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs1" hidden><p>In statistics, samples are drawn from a population in a data-generating process (DGP). Standard errors measure the uncertainty in sample estimates of population parameters. In science, evidence is generated to test hypotheses in an evidence-generating process (EGP). We claim that EGP variation across researchers adds uncertainty: non-standard errors. To study them, we let 164 teams test six hypotheses on the same sample. We find that non-standard errors are sizeable, on par with standard errors. Their size (i) co-varies only weakly with team merits, reproducibility, or peer rating, (ii) declines significantly after peer-feedback, and (iii) is underestimated by participants.</p></div>
+          <div class="tags"><button class="tag" type="button">Research Methodology</button><button class="tag" type="button">Multi-Analyst Study</button><button class="tag" type="button">Liquidity</button></div>
+        </article>
+        <article class="paper" data-tags="Downside Risk|Semibetas|High-Frequency Data|International Markets|Cross-Section of Returns">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4560084" target="_blank" rel="noopener">Realized Semibetas and International Stock Return Predictability</a></h3>
+          <p class="who">with Renata Herrerias, Fernando Perez and Aurelio Vasquez</p>
+          <p class="pub"><span class="journal">Finance Research Letters</span>, Vol. 58, 104641<span class="sep">&middot;</span><span class="year">2023</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs2"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4560084" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID4599502_code553372.pdf?abstractid=4560084" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a><a class="lnk" href="https://doi.org/10.1016/j.frl.2023.104641" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs2" hidden><p>We decompose traditional betas into semibetas based on the signed covariation between the returns of individual stocks in an international market and the returns of three risk factors: local, global, and foreign exchange. Using high-frequency data, we empirically assess stock return co-movements with these three risk factors and find novel relationships between these factors and future returns. Our analysis shows that only semibetas derived from negative risk factor and stock return downturns command significant risk premia. Global downside risk is negatively priced in the international market and local downside risk is positively priced.</p></div>
+          <div class="tags"><button class="tag" type="button">Downside Risk</button><button class="tag" type="button">Semibetas</button><button class="tag" type="button">High-Frequency Data</button><button class="tag" type="button">International Markets</button><button class="tag" type="button">Cross-Section of Returns</button></div>
+        </article>
+        <article class="paper" data-tags="IPOs|Media Coverage|Textual Analysis|IPO Withdrawal">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4250167" target="_blank" rel="noopener">Media Coverage and the Decision to Withdraw an IPO</a></h3>
+          <p class="who">with Jean-Yves Filbien and Maher Kooli</p>
+          <p class="pub"><span class="journal">International Review of Financial Analysis</span>, Vol. 84, 102388<span class="sep">&middot;</span><span class="year">2022</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs3"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4250167" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://doi.org/10.1016/j.irfa.2022.102388" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs3" hidden><p>We examine the impact of pre-initial public offering (IPO) media coverage on the decision to withdraw an IPO. Using a sample of 2592 U.S. completed and withdrawn IPOs between January 1998 and December 2011, we find that media coverage and media tone are significantly negatively related to the probability of withdrawal. We also find that even when media coverage does not supply new information during the IPO process, it plays a significant role in disseminating investors’ beliefs about firm valuations, which relate to the final outcome of this process. We examine the price range changes during the filing process as a proxy for changes in investors’ initial demand and find that downward price changes are related to the intensity of media coverage.</p></div>
+          <div class="tags"><button class="tag" type="button">IPOs</button><button class="tag" type="button">Media Coverage</button><button class="tag" type="button">Textual Analysis</button><button class="tag" type="button">IPO Withdrawal</button></div>
+        </article>
+        <article class="paper" data-tags="High-Frequency Data|Option Realized Variance|Jump-Diffusions|Variance Risk Premium|Option Pricing">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2975355" target="_blank" rel="noopener">The Informational Content of High-Frequency Option Prices</a></h3>
+          <p class="who">with Jean-François Bégin and Geneviève Gauthier</p>
+          <p class="pub"><span class="journal">Management Science</span>, Vol. 68, Issue 3, 2166–2201<span class="sep">&middot;</span><span class="year">2022</span></p>
+          <ul class="awards"><li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9.2 4.5 15 8 13l3.5 2-1-5.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Best Paper Award in Derivatives, 2017 NFA Annual Conference</span></li></ul>
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs4"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2975355" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID3536543_code2545708.pdf?abstractid=2975355" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a><a class="lnk" href="https://doi.org/10.1287/mnsc.2020.3949" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs4" hidden><p>We propose the option realized variance as an observable variable to summarize the information from high-frequency option data. This variable aggregates intraday option returns from midquote prices to compute an option’s total variability for a given day, providing additional information about the jump activity in the data generating process. Using the S&amp;P 500 index time series and options data, this paper documents the performance of this realized measure in predicting the index realized variance as well as the equity and variance risk premiums. We estimate an option pricing model and analyze its parameter estimates. Our results show that excluding high-frequency option information produces significant differences in variance jump parameters, estimated risk premiums, and option pricing errors.</p></div>
+          <div class="tags"><button class="tag" type="button">High-Frequency Data</button><button class="tag" type="button">Option Realized Variance</button><button class="tag" type="button">Jump-Diffusions</button><button class="tag" type="button">Variance Risk Premium</button><button class="tag" type="button">Option Pricing</button></div>
+        </article>
+        <article class="paper" data-tags="Stochastic Volatility|Jump-Diffusions|Particle Filter|Realized Measures|Option Realized Variance">
+          <h3 class="ptitle"><a href="https://doi.org/10.1137/19M1266915" target="_blank" rel="noopener">On the Estimation of Jump-Diffusion Models Using Intraday Data: A Filtering-Based Approach</a></h3>
+          <p class="who">Jean-François Bégin, Diego Amaya, Geneviève Gauthier and Marie-Eve Malette</p>
+          <p class="pub"><span class="journal">SIAM Journal on Financial Mathematics</span>, Vol. 11, Issue 4, 1168–1208<span class="sep">&middot;</span><span class="year">2020</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs5"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://doi.org/10.1137/19M1266915" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3737708" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Supplement</a></div>
+          <div class="panel abstract" id="abs5" hidden><p>In this paper, we adopt a flexible filtering procedure to extract information from high-frequency data. Specifically, we provide a parsimonious framework to integrate realized measures from high-frequency index and derivative prices. In a simulation study, we document the incremental information offered by realized measures and show that even though high-frequency index prices help identify spot variance and jump price dynamics, it is the addition of high-frequency option prices that enables variance jumps to be identified. A series of empirical studies based on the S&amp;P 500 index and options show that estimation precision improves with the addition of information from intraday option prices.</p></div>
+          <div class="tags"><button class="tag" type="button">Stochastic Volatility</button><button class="tag" type="button">Jump-Diffusions</button><button class="tag" type="button">Particle Filter</button><button class="tag" type="button">Realized Measures</button><button class="tag" type="button">Option Realized Variance</button></div>
+        </article>
+        <article class="paper" data-tags="IPOs|Early-Stage Funding|Shell Companies|Long-Run Performance">
+          <h3 class="ptitle"><a href="https://doi.org/10.1016/j.najef.2019.101131" target="_blank" rel="noopener">Diamonds in the Rough: The Value of Scouting for Early-Stage Funding</a></h3>
+          <p class="who">with Michael Brolley and Brian F. Smith</p>
+          <p class="pub"><span class="journal">North American Journal of Economics and Finance</span>, Vol. 52, 101131<span class="sep">&middot;</span><span class="year">2020</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs6"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://doi.org/10.1016/j.najef.2019.101131" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs6" hidden><p>IPOs of small early-stage companies have largely declined in the last few decades. Governments and exchanges have responded with new regulations to encourage access for small firms to public markets. Critics caution, however, that lower standards for going public may be worse for investors. In this paper, we document one exchange’s approach to encourage small IPOs: founders establish shell companies through which to scout and promote funding of early-stage companies. We find that founders earn compensatory returns for their search role, and that the average long-term performance of these companies is similar to that of small conventional IPOs, underscoring that conventional IPOs may fail to identify or screen companies of similar quality asymmetrically. Consistent with prior literature on small IPOs, the long-term post-IPO performance of both the conventional and alternative funding processes are highly right-skewed and poor, on average, but not statistically different.</p></div>
+          <div class="tags"><button class="tag" type="button">IPOs</button><button class="tag" type="button">Early-Stage Funding</button><button class="tag" type="button">Shell Companies</button><button class="tag" type="button">Long-Run Performance</button></div>
+        </article>
+        <article class="paper" data-tags="Credit Risk|Structural Models|Survivorship Bias|Maximum Likelihood">
+          <h3 class="ptitle"><a href="https://doi.org/10.1016/j.jedc.2018.11.005" target="_blank" rel="noopener">Maximum Likelihood Estimation of First-Passage Structural Credit Risk Models Correcting for the Survivorship Bias</a></h3>
+          <p class="who">with Mathieu Boudreault and Don L. McLeish</p>
+          <p class="pub"><span class="journal">Journal of Economic Dynamics and Control</span>, Vol. 100, 297–313<span class="sep">&middot;</span><span class="year">2019</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs7"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://doi.org/10.1016/j.jedc.2018.11.005" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a><a class="lnk" href="http://hdl.handle.net/10012/15614" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Accepted manuscript</a></div>
+          <div class="panel abstract" id="abs7" hidden><p>The survivorship bias in credit risk modeling is the bias that results in parameter estimates when the survival of a company is ignored. We study the statistical properties of the maximum likelihood estimator (MLE) accounting for survivorship bias for models based on the first-passage of the geometric Brownian motion. We find that if we neglect the survivorship bias, then the drift has a positive bias that may not disappear asymptotically. We show that correcting the survivorship bias by conditioning on survival in the likelihood function underestimates the drift. Therefore, we propose a bias correction method for non-iid samples that is first-order unbiased and second-order efficient. The economic impact of neglecting or miscorrecting for the survivorship bias is studied empirically based on a sample of more than 13,000 companies over the period 1980 through 2016 inclusive. Our results point to the important risk of misclassifying a company as solvent or insolvent due to biases in the estimates.</p></div>
+          <div class="tags"><button class="tag" type="button">Credit Risk</button><button class="tag" type="button">Structural Models</button><button class="tag" type="button">Survivorship Bias</button><button class="tag" type="button">Maximum Likelihood</button></div>
+        </article>
+        <article class="paper" data-tags="Intraday Liquidity|Limit Order Books|Price Impact|Market Microstructure">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2660226" target="_blank" rel="noopener">Distilling Liquidity Costs from Limit Order Books</a></h3>
+          <p class="who">with Jean-Yves Filbien, Cedric Okou and Alexandre F. Roch</p>
+          <p class="pub"><span class="journal">Journal of Banking &amp; Finance</span>, Vol. 94, 16–34<span class="sep">&middot;</span><span class="year">2018</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs8"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2660226" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID3199548_code710335.pdf?abstractid=2660226" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a><a class="lnk" href="https://doi.org/10.1016/j.jbankfin.2018.06.009" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs8" hidden><p>This paper proposes a method to compute ex-ante trading costs at the intraday level from limit order books. Using nearly 500 of the largest traded companies in the NYSE ArcaBook, we show that these costs have nontrivial intraday dynamics, are negatively related to volume and positively related to volatility. When ex-ante trading costs are incorporated into price impact specifications, the results show that this measure provides relevant information about price changes of the market at a high frequency level. Our evidence suggests that ex-ante trading costs constitute a new source of information for the study of intraday liquidity.</p></div>
+          <div class="tags"><button class="tag" type="button">Intraday Liquidity</button><button class="tag" type="button">Limit Order Books</button><button class="tag" type="button">Price Impact</button><button class="tag" type="button">Market Microstructure</button></div>
+        </article>
+        <article class="paper" data-tags="Realized Moments|Skewness|High-Frequency Data|Cross-Section of Returns">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1898735" target="_blank" rel="noopener">Does Realized Skewness Predict the Cross-Section of Equity Returns?</a></h3>
+          <p class="who">with Peter Christoffersen, Kris Jacobs and Aurelio Vasquez</p>
+          <p class="pub"><span class="journal">Journal of Financial Economics</span>, Vol. 118, Issue 1, 135–167<span class="sep">&middot;</span><span class="year">2015</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs9"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1898735" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID2575811_code710335.pdf?abstractid=1898735" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a><a class="lnk" href="https://doi.org/10.1016/j.jfineco.2015.02.009" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs9" hidden><p>We use intraday data to compute weekly realized moments for equity returns and study their time-series and cross-sectional properties. Buying stocks in the lowest realized skewness decile and selling stocks in the highest realized skewness decile generates an average return of 19 basis points the following week with a t-statistic of 3.70. This result is robust across a wide variety of implementations and is not captured by the Fama-French and Carhart factors. The relation between realized kurtosis and next week’s stock returns is positive but not always significant. We do not find a strong relation between realized volatility and next week’s stock returns.</p></div>
+          <div class="tags"><button class="tag" type="button">Realized Moments</button><button class="tag" type="button">Skewness</button><button class="tag" type="button">High-Frequency Data</button><button class="tag" type="button">Cross-Section of Returns</button></div>
+        </article>
+        <article class="paper" data-tags="Risk Management|Hedging|Capital Structure|Dynamic Programming">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2103562" target="_blank" rel="noopener">Dynamic Risk Management: Investment, Capital Structure, and Hedging in the Presence of Financial Frictions</a></h3>
+          <p class="who">with Geneviève Gauthier and Thomas-Olivier Léautier</p>
+          <p class="pub"><span class="journal">Journal of Risk and Insurance</span>, Vol. 82, Issue 2, 359–399<span class="sep">&middot;</span><span class="year">2015</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs10"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2103562" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID2214682_code380708.pdf?abstractid=2103562" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a><a class="lnk" href="https://doi.org/10.1111/jori.12025" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs10" hidden><p>This article develops a dynamic risk management model to determine a firm’s optimal risk management strategy. This strategy has two elements. First, for low-leverage values, the firm fully hedges its operating cash flow exposure, due to the convexity of its cost of capital. When leverage exceeds a very high threshold, the firm gambles for resurrection and stops hedging. Second, the firm manages its capital structure through dividend distributions and investment. When leverage is low, the firm replaces depreciated assets, fully invests in opportunities if they arise, and distributes dividends, all of these together to achieve its optimal capital structure. As leverage increases, the firm stops paying dividends, while fully investing. After a certain leverage, the firm also reduces investment until it stops investing completely. The model predictions are consistent with empirical observations.</p></div>
+          <div class="tags"><button class="tag" type="button">Risk Management</button><button class="tag" type="button">Hedging</button><button class="tag" type="button">Capital Structure</button><button class="tag" type="button">Dynamic Programming</button></div>
+        </article>
+        <article class="paper" data-tags="Central Bank Communication|Monetary Policy|Textual Analysis">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2615131" target="_blank" rel="noopener">The Similarity of ECB’s Communication</a></h3>
+          <p class="who">with Jean-Yves Filbien</p>
+          <p class="pub"><span class="journal">Finance Research Letters</span>, Vol. 13, 234–242<span class="sep">&middot;</span><span class="year">2015</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs11"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2615131" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://doi.org/10.1016/j.frl.2014.12.006" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 3h4v4M13 3 7 9M11 9.5V13H3V5h3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal</a></div>
+          <div class="panel abstract" id="abs11" hidden><p>This article examines the communication of the European Central Bank (ECB) at press conferences and its impact on financial markets. We compare consecutive central banker conference speeches and document that the similitude of these speeches has been increasing over time. We find evidence that the similarity of ECB communication has helped stock markets learn from ECB monetary policy.</p></div>
+          <div class="tags"><button class="tag" type="button">Central Bank Communication</button><button class="tag" type="button">Monetary Policy</button><button class="tag" type="button">Textual Analysis</button></div>
+        </article>
+  </section>
+
+  <section id="working-papers">
+    <div class="sec-head"><h2>Working Papers</h2><span class="count">5 papers</span></div>
+    <div class="sec-rule"></div>
+        <article class="paper" data-tags="0DTE Options|S&amp;P 500 Index Options|Hedge Unwinding|Hedge Rebalancing|Gamma Squeeze|Market Makers">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7330098" target="_blank" rel="noopener">The Price Impact of Hedging Expiring Index Options</a></h3>
+          <p class="who">with Pedro Angel Garcia-Ares, Aurelio Vasquez and Neil D. Pearson</p>
+          <p class="pub"><span class="journal">Working paper</span><span class="sep">&middot;</span><span class="year">August 2026</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs12"><span class="chev" aria-hidden="true"></span>Abstract</button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7330098" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/7330098.pdf?abstractid=7330098" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a></div>
+          <div class="panel abstract" id="abs12" hidden><p>A previously unrecognized channel through which index options trading impacts the underlying market is that delta hedges of expiring cash-settled index options are unwound at expiration. This contrasts with physically-settled options, where the delta hedge positions in the underlier are used to settle the options position. We use proprietary data to determine market maker positions in expiring S&amp;P 500 index options, and show that hedge unwinding trades have important impacts on index futures returns and volatility during the 30 minutes before options expiration. We also study the impact of options market maker hedge rebalancing trades on market volatility.</p></div>
+          <div class="tags"><button class="tag" type="button">0DTE Options</button><button class="tag" type="button">S&amp;P 500 Index Options</button><button class="tag" type="button">Hedge Unwinding</button><button class="tag" type="button">Hedge Rebalancing</button><button class="tag" type="button">Gamma Squeeze</button><button class="tag" type="button">Market Makers</button></div>
+        </article>
+        <article class="paper" data-tags="Retail Option Trading|0DTE Options|Algorithmic Trading|Market Microstructure|Fintech">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6480379" target="_blank" rel="noopener">The Rise of Algorithmic Retail Option Traders</a></h3>
+          <p class="who">with Pedro Angel Garcia-Ares, Neil D. Pearson and Aurelio Vasquez</p>
+          <p class="pub"><span class="journal">Working paper</span><span class="sep">&middot;</span><span class="year">February 2026</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs13"><span class="chev" aria-hidden="true"></span>Abstract</button><button class="tg" type="button" aria-expanded="false" aria-controls="pres13"><span class="chev" aria-hidden="true"></span>Presentations <span class="cnt">5</span></button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6480379" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/6480379.pdf?abstractid=6480379" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a></div>
+          <div class="panel abstract" id="abs13" hidden><p>Trading in SPX 0DTE options spikes at fixed times. Using OPRA transaction records from May 2022 through January 2026, we show that the bursts begin within seconds of each half-hour mark, finish within a minute, and grow each year. They consist of a small set of defined-risk strategies whose strikes, widths, and credits resemble templates of retail automation platforms, and can be identified from those characteristics alone, without the clock. At spike times quoted spreads narrow while effective spreads widen: predictability attracts liquidity, and simultaneity consumes it. The order flow is synchronized though the algorithms never learn, communicate, or interact.</p></div><div class="panel pres" id="pres13" hidden><ul><li>University Laval, Seminar (Quebec, Canada), October 2026</li><li>2026 FMA Annual Meeting (expected)</li><li>15th Conference on Derivatives (CDI 2026) (Montreal, Canada; expected)</li><li>Future Finance Fest (3f) (Amsterdam, Netherlands)</li><li>ITAM Brown Bag Seminar (Mexico City, Mexico)</li></ul></div>
+          <div class="tags"><button class="tag" type="button">Retail Option Trading</button><button class="tag" type="button">0DTE Options</button><button class="tag" type="button">Algorithmic Trading</button><button class="tag" type="button">Market Microstructure</button><button class="tag" type="button">Fintech</button></div>
+        </article>
+        <article class="paper" data-tags="Retail Investors|Option Expiration|Execution Costs|Market Microstructure|Fintech">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6272179" target="_blank" rel="noopener">Robinhood’s Forced Liquidations</a></h3>
+          <p class="who">with Pedro Angel Garcia-Ares, Aurelio Vasquez and Neil D. Pearson</p>
+          <p class="pub"><span class="journal">Working paper</span><span class="sep">&middot;</span><span class="year">September 2025</span></p>
+          <ul class="awards"><li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9.2 4.5 15 8 13l3.5 2-1-5.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Best Paper Award, 2026 FMA Consortium on Asset Management</span></li><li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9.2 4.5 15 8 13l3.5 2-1-5.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Best Paper Award in Options and Derivatives, 2026 FMA Annual Meeting</span></li></ul>
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs14"><span class="chev" aria-hidden="true"></span>Abstract</button><button class="tg" type="button" aria-expanded="false" aria-controls="pres14"><span class="chev" aria-hidden="true"></span>Presentations <span class="cnt">14</span></button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6272179" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/6272179.pdf?abstractid=6272179" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a></div>
+          <div class="panel abstract" id="abs14" hidden><p>Mobile brokerage platforms such as Robinhood have attracted millions of new investors by reducing transaction costs and offering simple, easy-to-use interfaces. Beyond lowering trading frictions, however, the design of these platforms can shape investor behavior through automated rules and risk-management protocols. We study one such mechanism: the automatic liquidation of option positions by brokerage platforms when customers lack the cash or shares required to exercise contracts or accept assignment at expiration. Using transaction-level option data, we identify bursts of trading generated by Robinhood’s forced liquidations shortly before the market close.</p></div><div class="panel pres" id="pres14" hidden><ul><li>34th Finance Forum (Alicante, Spain)</li><li>2026 FMA Annual Meeting</li><li>Southern Finance Association 2026 Annual Meeting (expected)</li><li>CICF 2026 (Hong Kong, China)</li><li>Future Finance Fest (3f) (Amsterdam, Netherlands)</li><li>SRP and Derivatives Conference 2026 (Hagen, Germany)</li><li>2026 RCEA International Conference in Economics, Econometrics, and Finance (Madrid, Spain)</li><li>2026 Forensic Finance Conference (Austin, US)</li><li>2026 FMA Consortium on Asset Management (Madrid, Spain)</li><li>MFA 2026 (Chicago, US)</li><li>2026 Cancun Derivatives and Asset Pricing Conference (Cozumel, Mexico)</li><li>Mendoza College of Business, University of Notre Dame, Seminar (Notre Dame, US)</li><li>HEC Montréal, Seminar (Montreal, Canada)</li><li>University of Liverpool, Seminar (Liverpool, UK)</li></ul></div>
+          <div class="tags"><button class="tag" type="button">Retail Investors</button><button class="tag" type="button">Option Expiration</button><button class="tag" type="button">Execution Costs</button><button class="tag" type="button">Market Microstructure</button><button class="tag" type="button">Fintech</button></div>
+        </article>
+        <article class="paper" data-tags="0DTE Options|S&amp;P 500 Index Options|Hedge Rebalancing|Gamma Squeeze|Volatility">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5113405" target="_blank" rel="noopener">0DTE Index Options and Market Volatility: How Large is Their Impact?</a></h3>
+          <p class="who">with Aurelio Vasquez, Neil D. Pearson and Pedro Angel Garcia-Ares</p>
+          <p class="pub"><span class="journal">Working paper</span><span class="sep">&middot;</span><span class="year">January 2025</span></p>
+          <ul class="awards"><li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9.2 4.5 15 8 13l3.5 2-1-5.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>2023 Cboe Options Institute Grant</span></li></ul>
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs15"><span class="chev" aria-hidden="true"></span>Abstract</button><button class="tg" type="button" aria-expanded="false" aria-controls="pres15"><span class="chev" aria-hidden="true"></span>Presentations <span class="cnt">8</span></button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5113405" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/5113405.pdf?abstractid=5113405" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a></div>
+          <div class="panel abstract" id="abs15" hidden><p>The large volume of trading in 0DTE S&amp;P 500 index options suggests that options market makers (OMMs) have large positions in these options. Because short-dated options have large gammas, OMMs’ hedge rebalancing trades might be large enough to impact the index. We estimate the maximum impact of OMM gamma on index volatility using proprietary trade data to determine the aggregate position of OMMs, and their gamma.</p></div><div class="panel pres" id="pres15" hidden><ul><li>2025 FMA Annual Meeting</li><li>2025 CDI Conference</li><li>32nd Finance Forum</li><li>ITAM Finance Conference 2025</li><li>2024 Derivatives and Asset Pricing Research Symposium (Hong Kong)</li><li>2024 FMA Conference on Derivatives and Volatility</li><li>University of Liverpool, Seminar</li><li>Università della Svizzera italiana (USI), Institute of Finance, Seminar</li></ul></div>
+          <div class="tags"><button class="tag" type="button">0DTE Options</button><button class="tag" type="button">S&amp;P 500 Index Options</button><button class="tag" type="button">Hedge Rebalancing</button><button class="tag" type="button">Gamma Squeeze</button><button class="tag" type="button">Volatility</button></div>
+        </article>
+        <article class="paper" data-tags="Price Discovery|S&amp;P 500 Index Options|Informed Trading|Information Share|Weekly Options">
+          <h3 class="ptitle"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4615609" target="_blank" rel="noopener">Price Discovery in Option Markets: Evidence from S&amp;P 500 Index Options</a></h3>
+          <p class="who">with M. Fabricio Perez</p>
+          <p class="pub"><span class="journal">Working paper</span><span class="sep">&middot;</span><span class="year">November 2023</span></p>
+          
+          <div class="actions"><button class="tg" type="button" aria-expanded="false" aria-controls="abs16"><span class="chev" aria-hidden="true"></span>Abstract</button><button class="tg" type="button" aria-expanded="false" aria-controls="pres16"><span class="chev" aria-hidden="true"></span>Presentations <span class="cnt">10</span></button><span class="divider" aria-hidden="true"></span><a class="lnk" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4615609" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M5.5 10.5h5" stroke="currentColor" stroke-width="1.4"/></svg>SSRN</a><a class="lnk" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID4634456_code710335.pdf?abstractid=4615609" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a></div>
+          <div class="panel abstract" id="abs16" hidden><p>How do informed investors trade in the option markets? Using the S&amp;P 500 index options market, we analyze how price discovery varies across option contract types, moneyness levels, and maturities. Our findings suggest that informed traders predominantly favor put, short-term, and at-the-money options. These preferences are not fixed; they adapt according to the current risk environment and in response to index return and volatility shocks. Additionally, we identify a structural shift that aligns with the growing popularity of weekly options. Our analysis reveals that informed traders are increasingly using weekly options to convey market information and have also intensified their preference for put options, short-term options, and out-of-the-money options towards the end of our sample period.</p></div><div class="panel pres" id="pres16" hidden><ul><li>Southern Finance Association Annual Meeting (USA), 2024</li><li>University of Central Florida, Seminar (invited), 2024</li><li>4th Frontier of Factor Investing Conference, 2024</li><li>Universidad de los Andes, Seminar (invited; Bogotá, Colombia), 2023</li><li>University of Geneva, Seminar (Geneva, Switzerland), March 2023</li><li>International Finance and Banking Society (IFABS), 2023</li><li>Western Economic Association International (WEAI), 2023</li><li>FMA Annual Meeting, 2023</li><li>Paris Financial Management Conference (Paris, France), 2022</li><li>Computational and Financial Econometrics (CFE) (London, UK), 2022</li></ul></div>
+          <div class="tags"><button class="tag" type="button">Price Discovery</button><button class="tag" type="button">S&amp;P 500 Index Options</button><button class="tag" type="button">Informed Trading</button><button class="tag" type="button">Information Share</button><button class="tag" type="button">Weekly Options</button></div>
+        </article>
+  </section>
+
+  <section id="teaching">
+    <div class="sec-head"><h2>Teaching</h2><span class="count">Wilfrid Laurier University</span></div>
+    <div class="sec-rule"></div>
+    <div class="course">
+      <div class="code">MF 791 / BU 493B</div>
+      <h3>Machine Learning in Finance</h3>
+      <div class="meta">Master of Finance and undergraduate</div>
+      <p>Machine learning methods and their practical implementation in finance. Organized in modules that follow the end-to-end process of deploying ML solutions, the course covers the applied mathematics underlying ML and applies it to selected financial problems in Python.</p>
+    </div>
+    <div class="course">
+      <div class="code">BU 423</div>
+      <h3>Options, Futures, and Swaps</h3>
+      <div class="meta">Undergraduate</div>
+      <p>The markets for forwards, futures, swaps, and options, and how these contracts are priced and used for hedging and speculation. Topics include no-arbitrage pricing, the Black-Scholes-Merton model, binomial trees, and the Greeks.</p>
+    </div>
+    <div class="course">
+      <div class="code">MF 623</div>
+      <h3>Derivatives and Risk Management</h3>
+      <div class="meta">Master of Finance</div>
+      <p>How market participants use derivatives to control market risk exposures. Students implement hedging strategies, study option trading strategies, and price derivatives with the Black-Scholes model and the Greeks.</p>
+    </div>
+    <div class="course">
+      <div class="code">BU 493 / 693</div>
+      <h3>Investment Strategies</h3>
+      <div class="meta">Undergraduate and graduate</div>
+      <p>The main investment strategies and tools used by hedge funds and proprietary traders: their risks and returns, an analytical framework to evaluate them, and the data skills needed to implement them.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">&copy; <span id="yr"></span> Diego Amaya &middot; Lazaridis School of Business and Economics, Wilfrid Laurier University</div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Abstract / presentations toggles
+  document.querySelectorAll('.tg').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var box = document.getElementById(btn.getAttribute('aria-controls'));
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      box.hidden = open;
+    });
+  });
+
+  // Topic filter
+  (function () {
+    var papers = document.querySelectorAll('.paper');
+    var bar = document.getElementById('filterbar');
+    var name = document.getElementById('filtername');
+    function apply(tag) {
+      papers.forEach(function (p) {
+        p.classList.toggle('hidden', !!tag && p.getAttribute('data-tags').split('|').indexOf(tag) === -1);
+      });
+      document.querySelectorAll('.tag').forEach(function (b) { b.classList.toggle('on', !!tag && b.textContent === tag); });
+      document.querySelectorAll('section').forEach(function (s) {
+        if (!s.querySelector('.paper')) return;
+        s.style.display = (tag && !s.querySelector('.paper:not(.hidden)')) ? 'none' : '';
+      });
+      bar.classList.toggle('show', !!tag);
+      name.textContent = tag || '';
+    }
+    document.querySelectorAll('.tag').forEach(function (b) {
+      b.addEventListener('click', function () {
+        apply(b.classList.contains('on') ? null : b.textContent);
+        bar.scrollIntoView({ block: 'start' });
+      });
+    });
+    document.getElementById('clearfilter').addEventListener('click', function () { apply(null); });
+  })();
+
+  // Highlight the section on screen in the top bar
+  (function () {
+    var links = document.querySelectorAll('.topnav nav a');
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+  })();
+</script>
+</body>
+</html>
